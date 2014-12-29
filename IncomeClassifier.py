@@ -18,16 +18,28 @@ from sklearn.metrics import confusion_matrix, f1_score
 
 # # get the data from the whole data set and make the predictor as -1 or 1
 
-# Drop the unimportant columns from original data sets
+
 def drop_columns(data):
+    """
+    Drops the unimportant columns from the original data
+
+    :param data: a pandas data frame of the original data
+    :return: a pandas data frame with only the important columns
+    """
     data = data.drop(['MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSUN', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'YEAR'], axis=1)
 
     return data
 
 
-# Drop rows from original dataset which have missing values
-# The training set is huge, so dropping few rows will not affect the learning ability of the classifiers
 def drop_rows(data):
+    """
+    Drops rows having missing or NA values from the data set
+    The training set is huge, so dropping few rows will not affect the learning
+    ability of the classifiers
+
+    :param data: a pandas data frame of the original data
+    :return: a pandas data frame without any missing or NA value
+    """
     rownum1 = np.where(data['GRINST'] == ' ?')[0]
     rownum2 = np.where(data['HHDFMX'] == ' Grandchild <18 ever marr not in subfamily')[0]
     rownum = np.concatenate((rownum1, rownum2))
@@ -36,6 +48,7 @@ def drop_rows(data):
     return data
 
 
+#This
 # this is the important part to make sklearn load the data
 # sklearn do not directly take the categorical data in string format
 # If the feature only have binary values( such as: sex), 0,1 encoding will be fine
@@ -43,7 +56,15 @@ def drop_rows(data):
 # will not work, because you will bring additional magnitude informations between
 # different levels. Therefore, need to use OneHotEncoder() function
 def data_transformation(data, continous, dummy, binary):
+    """
+    
 
+    :param data:
+    :param continous:
+    :param dummy:
+    :param binary:
+    :return:
+    """
     le = LabelEncoder()
     for col1 in dummy:
         le.fit(data[col1])
