@@ -26,9 +26,9 @@ def drop_columns(data):
     :param data: a pandas data frame of the original data
     :return: a pandas data frame with only the important columns
     """
-    data = data.drop(['MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSUN', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'YEAR'], axis=1)
+    output_data = data.drop(['MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSUN', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'YEAR'], axis=1)
 
-    return data
+    return output_data
 
 
 def drop_rows(data):
@@ -40,30 +40,29 @@ def drop_rows(data):
     :param data: a pandas data frame of the original data
     :return: a pandas data frame without any missing or NA value
     """
-    rownum1 = np.where(data['GRINST'] == ' ?')[0]
-    rownum2 = np.where(data['HHDFMX'] == ' Grandchild <18 ever marr not in subfamily')[0]
-    rownum = np.concatenate((rownum1, rownum2))
+    row1 = np.where(data['GRINST'] == ' ?')[0]
+    row2 = np.where(data['HHDFMX'] == ' Grandchild <18 ever marr not in subfamily')[0]
+    rownum = np.concatenate((row1, row2))
     data = data.drop(data.index[rownum])
 
     return data
 
 
-#This
-# this is the important part to make sklearn load the data
-# sklearn do not directly take the categorical data in string format
-# If the feature only have binary values( such as: sex), 0,1 encoding will be fine
-# if the feature has multiple levels of value, simply coding as 0,1,2,3,...
-# will not work, because you will bring additional magnitude informations between
-# different levels. Therefore, need to use OneHotEncoder() function
 def data_transformation(data, continous, dummy, binary):
     """
-    
+    Encodes categorical variables into numerical values such as 0 and 1 using OneHotEncoder function.
 
-    :param data:
-    :param continous:
-    :param dummy:
-    :param binary:
-    :return:
+    Sklearn functions do not directly accept categorical data in string fromat. Thus, encoding of categorical
+    data is required.
+    Also, if a feature has only binary values(such as: Gender), then 0,1 encoding is fine. However, if the
+    feature has multiple levels, then simple encoding as 0,1,2,3... will not work because it will bring
+    additional information about magnitude between different levels.
+
+    :param data: a pandas data frame containing all the variables.
+    :param continous: a list of column names(variables) which have continuous values
+    :param dummy: a list of column names(variables) which have dummy values
+    :param binary: a list of column names(variables) which have binary values
+    :return: a transformed data set
     """
     le = LabelEncoder()
     for col1 in dummy:
