@@ -1,8 +1,6 @@
 __author__ = 'amityadav'
 
 
-# Import libraries and packages
-
 import pandas as pd
 import numpy as np
 from sklearn.svm import SVC
@@ -14,9 +12,6 @@ from sklearn.svm import SVC
 from sklearn.cross_validation import cross_val_score, train_test_split
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder, MinMaxScaler, scale
 from sklearn.metrics import confusion_matrix, f1_score
-
-
-# # get the data from the whole data set and make the predictor as -1 or 1
 
 
 def drop_columns(data):
