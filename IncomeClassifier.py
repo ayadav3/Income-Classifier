@@ -16,7 +16,7 @@ from sklearn.metrics import confusion_matrix, f1_score
 
 def drop_columns(data):
     """
-    Drops the unimportant columns from the original data
+    Drops the unimportant columns from the original data and
 
     :param data: a pandas data frame of the original data
     :return: a pandas data frame with only the important columns
