@@ -60,6 +60,7 @@ def data_transformation(data, continuous, dummy, binary):
     :param binary: a list of column names(variables) which have binary values
     :return: a transformed data set
     """
+
     le = LabelEncoder()
 
     # Encoding the columns with multiple categorical levels
@@ -137,13 +138,15 @@ def dataNormalization(X, num):
 
 def decisionTree(X, y, X_test, y_test):
     """
+    Implements the decision tree classifier from the sklearn package.
 
-    :param X:
-    :param y:
-    :param X_test:
-    :param y_test:
-    :return:
+    :param X: a training data set containing the feature values
+    :param y: an array of training target variables
+    :param X_test: a test data set containing the feature values
+    :param y_test: an array of testing set target variables
+    :return: prints the f1_score
     """
+
     clf = tree.DecisionTreeClassifier(criterion='gini', max_depth=2)
     clf.fit(X, y)
     ypred = clf.predict(X_test[:])
@@ -152,13 +155,15 @@ def decisionTree(X, y, X_test, y_test):
 
 def randomForest(X, y, X_test, y_test):
     """
+    Implements the random forest classifier from the sklearn package.
 
-    :param X:
-    :param y:
-    :param X_test:
-    :param y_test:
-    :return:
+    :param X: a training data set containing the feature values
+    :param y: an array of training target variables
+    :param X_test: a test data set containing the feature values
+    :param y_test: an array of testing set target variables
+    :return: prints the f1_score
     """
+
     clf = RandomForestClassifier(n_estimators=500, criterion='entropy', random_state=33, n_jobs=-1, max_features=50)
     clf.fit(X, y)
     ypred = clf.predict(X_test[:])
@@ -168,13 +173,15 @@ def randomForest(X, y, X_test, y_test):
 
 def logistic(X, y, X_test, y_test):
     """
+    Implements the logistic regression classifier from the sklearn package.
 
-    :param X:
-    :param y:
-    :param X_test:
-    :param y_test:
-    :return:
+    :param X: a training data set containing the feature values
+    :param y: an array of training target variables
+    :param X_test: a test data set containing the feature values
+    :param y_test: an array of testing set target variables
+    :return: prints the f1_score
     """
+
     clf = LogisticRegression(penalty='l2', C=0.5, random_state=33)
     clf.fit(X, y)
     ypred = clf.predict(X_test[:])
@@ -185,12 +192,13 @@ def logistic(X, y, X_test, y_test):
 
 def KNN(X, y, X_test, y_test):
     """
+    
 
-    :param X:
-    :param y:
-    :param X_test:
-    :param y_test:
-    :return:
+    :param X: a training data set containing the feature values
+    :param y: an array of training target variables
+    :param X_test: a test data set containing the feature values
+    :param y_test: an array of testing set target variables
+    :return: prints the f1_score
     """
     clf = KNeighborsClassifier(n_neighbors=5)
     print cross_val_score(clf, X, y, cv=5, scoring='accuracy').mean()
