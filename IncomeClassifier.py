@@ -192,26 +192,28 @@ def logistic(X, y, X_test, y_test):
 
 def KNN(X, y, X_test, y_test):
     """
-    
+    Implements the K-Nearest Neighbor classifier from the sklearn package.
 
     :param X: a training data set containing the feature values
     :param y: an array of training target variables
     :param X_test: a test data set containing the feature values
     :param y_test: an array of testing set target variables
-    :return: prints the f1_score
+    :return: prints the cross_val_score
     """
+
     clf = KNeighborsClassifier(n_neighbors=5)
     print cross_val_score(clf, X, y, cv=5, scoring='accuracy').mean()
 
 
 def SVM(X, y, X_test, y_test):
     """
+    Implements the Support Vector Machine classifier from the sklearn package.
 
-    :param X:
-    :param y:
-    :param X_test:
-    :param y_test:
-    :return:
+    :param X: a training data set containing the feature values
+    :param y: an array of training target variables
+    :param X_test: a test data set containing the feature values
+    :param y_test: an array of testing set target variables
+    :return: prints the f1_score
     """
     clf = SVC(C=10)
     clf.fit(X, y)
@@ -225,9 +227,14 @@ def SVM(X, y, X_test, y_test):
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('census-income.data', header=None, delimiter=',')  # read the original data
+
+    # Reading the original training data as a pandas data frame
+    data = pd.read_csv('census-income.data', header=None, delimiter=',')
+
+    # Reading the test data as a pandas data frame
     data_test = pd.read_csv('census-income.test', header=None, delimiter=',')
 
+    # Naming columns of the training and test data set as per the code book
     data.columns = ['AAGE', 'ACLSWKR', 'ADTIND', 'ADTOCC', 'AHGA', 'AHRSPAY',
                     'AHSCOL', 'AMARITL', 'AMJIND', 'AMJOCC', 'ARACE', 'AREORGN',
                     'ASEX', 'AUNMEM', 'AUNTYPE', 'AWKSTAT', 'CAPGAIN', 'CAPLOSS',
@@ -235,14 +242,15 @@ if __name__ == '__main__':
                     'MARSUPWT', 'MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSAME', 'MIGSUN',
                     'NOEMP', 'PARENT', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'PRCITSHP',
                     'SEOTR', 'VETQVA', 'VETYN', 'WKSWORK', 'YEAR',
-                    'target']  # original columns name from the supplementary file of data set
-
+                    'target']
     data_test.columns = data.columns
-    # print data_test.shape
 
+    # Making a list of columns having continuous values. It includes the target variable also.
     continuous_columns = ['AAGE', 'AHRSPAY', 'DIVVAL', 'NOEMP', 'CAPGAIN', 'CAPLOSS', 'WKSWORK', 'MARSUPWT',
-                          'target']  # names of columns with continous value( I put the 'target' also here)
-    binary_columns = ['ASEX']  # columns with binary value
+                          'target']
+
+    # Making a list of columns having binary values
+    binary_columns = ['ASEX']
 
     data = drop_columns(data)  # drop some colums
     data = drop_rows(data)  # drop some rows, since some rows have missing value
