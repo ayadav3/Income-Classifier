@@ -92,12 +92,26 @@ def data_transformation(data, continous, dummy, binary):
 
 def original_data(data):
     """
-    
-    :param data:
-    :return:
+    Splits feature and target variables
+
+    :param data: a pandas data frame containing feature and target variables
+    :return: two data frame containing feature and target variables respectively
     """
 
     predictor_variables = data[:, :-1]
     target_variable = data[:, -1]
 
     return predictor_variables, target_variable
+
+# random oversampling or random undersampling depends on the size of sampling
+def sampling(pos_index, neg_index,size):
+    """
+    
+    :param pos_index:
+    :param neg_index:
+    :param size:
+    :return:
+    """
+    pos_index, neg_index = np.random.choice(pos_index, size), np.random.choice(neg_index, size)
+    indices = np.concatenate((pos_index, neg_index))
+    return indices
