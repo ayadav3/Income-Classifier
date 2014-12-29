@@ -26,7 +26,8 @@ def drop_columns(data):
     :param data: a pandas data frame of the original data
     :return: a pandas data frame with only the important columns
     """
-    output_data = data.drop(['MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSUN', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'YEAR'], axis=1)
+    output_data = data.drop(['MIGMTR1', 'MIGMTR3', 'MIGMTR4', 'MIGSUN', 'PEFNTVTY', 'PEMNTVTY', 'PENATVTY', 'YEAR'],
+                            axis=1)
 
     return output_data
 
@@ -65,21 +66,38 @@ def data_transformation(data, continous, dummy, binary):
     :return: a transformed data set
     """
     le = LabelEncoder()
+
+    # Encoding the columns with multiple categorical levels
     for col1 in dummy:
         le.fit(data[col1])
         data[col1] = le.transform(data[col1])
-    dummydata = np.array(data[dummy])
-    enc = OneHotEncoder()
-    enc.fit(dummydata)
-    dummydata = enc.transform(dummydata).toarray()
 
+    dummy_data = np.array(data[dummy])
+    enc = OneHotEncoder()
+    enc.fit(dummy_data)
+    dummy_data = enc.transform(dummy_data).toarray()
+
+    # Encoding the columns with binary levels
     for col2 in binary:
         le.fit(data[col2])
         data[col2] = le.transform(data[col2])
-    binarydata = np.array(data[binary])
+    binary_data = np.array(data[binary])
 
     le.fit(data['target'])
     data['target'] = le.transform(data['target'])
-    continuousdata = np.array(data[continous])
+    continuous_data = np.array(data[continous])
 
-    return np.concatenate((dummydata, binarydata, continuousdata), axis=1)
+    return np.concatenate((dummy_data, binary_data, continuous_data), axis=1)
+
+
+def original_data(data):
+    """
+    
+    :param data:
+    :return:
+    """
+
+    predictor_variables = data[:, :-1]
+    target_variable = data[:, -1]
+
+    return predictor_variables, target_variable
