@@ -16,7 +16,7 @@ from sklearn.metrics import confusion_matrix, f1_score
 
 def drop_columns(data):
     """
-    Drops the unimportant columns from the original data and
+    Drops the unimportant columns from the original data
 
     :param data: a pandas data frame of the original data
     :return: a pandas data frame with only the important columns
@@ -118,10 +118,11 @@ def sampling(pos_index, neg_index, size):
 
 def dataNormalization(X, num):
     """
+    Normalizes the features data set according to the option provided in the num variable.
 
-    :param X:
-    :param num:
-    :return:
+    :param X: a data frame with all the feature variables and data
+    :param num: takes value 1 or 2. If num equals 1, then use scale(). If num equals 2, then use MinMaxScaler().
+    :return: a normalized data frame
     """
     if num == 1:
         normX = scale(X)
@@ -129,7 +130,7 @@ def dataNormalization(X, num):
         min_max_scaler = MinMaxScaler()
         normX = min_max_scaler.fit_transform(X)
     else:
-        print 'wrong parameter for data normalization'
+        print 'You have selected wrong value for "num" parameter. It can take either 1 or 2 as a valid value.'
 
     return normX
 
