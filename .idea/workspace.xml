@@ -28,8 +28,8 @@
       <file leaf-file-name="IncomeClassifier.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IncomeClassifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9235993" vertical-offset="3656" max-vertical-offset="4380">
-              <caret line="280" column="33" selection-start-line="280" selection-start-column="33" selection-end-line="280" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.5670628" vertical-offset="3776" max-vertical-offset="4365">
+              <caret line="274" column="49" selection-start-line="274" selection-start-column="49" selection-end-line="274" selection-end-column="49" />
               <folding>
                 <element signature="e#27#46#0" expanded="true" />
               </folding>
@@ -369,8 +369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IncomeClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9235993" vertical-offset="3656" max-vertical-offset="4380">
-          <caret line="280" column="33" selection-start-line="280" selection-start-column="33" selection-end-line="280" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.5670628" vertical-offset="3776" max-vertical-offset="4365">
+          <caret line="274" column="49" selection-start-line="274" selection-start-column="49" selection-end-line="274" selection-end-column="49" />
           <folding>
             <element signature="e#27#46#0" expanded="true" />
           </folding>

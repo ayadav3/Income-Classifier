@@ -272,10 +272,10 @@ if __name__ == '__main__':
     # Separate the indices of target between values of 1 and 0
     pos_index, neg_index = np.where(y == 1)[0], np.where(y == 0)[0]
 
-    # Correct the imbalance of the training dataset
+    # Correct the imbalance of the training data set
     indices = sampling(pos_index, neg_index, 50000)
 
-    # Get the final dataset for model fitting, this is for training set only, shuffling the data
+    # Get the final data set for model fitting, this is for training set only, shuffling the data
     X, y = X[indices], y[indices]
 
     # Applying various algorithms
