@@ -49,18 +49,18 @@ def drop_rows(data):
     return data
 
 
-def data_transformation(data, continous, dummy, binary):
+def data_transformation(data, continuous, dummy, binary):
     """
     Encodes categorical variables into numerical values such as 0 and 1 using OneHotEncoder function.
 
-    Sklearn functions do not directly accept categorical data in string fromat. Thus, encoding of categorical
-    data is required.
+    Sklearn functions do not directly accept categorical data in string format.
+    Thus, encoding of categorical data is required.
     Also, if a feature has only binary values(such as: Gender), then 0,1 encoding is fine. However, if the
     feature has multiple levels, then simple encoding as 0,1,2,3... will not work because it will bring
     additional information about magnitude between different levels.
 
     :param data: a pandas data frame containing all the variables.
-    :param continous: a list of column names(variables) which have continuous values
+    :param continuous: a list of column names(variables) which have continuous values
     :param dummy: a list of column names(variables) which have dummy values
     :param binary: a list of column names(variables) which have binary values
     :return: a transformed data set
@@ -85,7 +85,7 @@ def data_transformation(data, continous, dummy, binary):
 
     le.fit(data['target'])
     data['target'] = le.transform(data['target'])
-    continuous_data = np.array(data[continous])
+    continuous_data = np.array(data[continuous])
 
     return np.concatenate((dummy_data, binary_data, continuous_data), axis=1)
 
@@ -103,15 +103,21 @@ def original_data(data):
 
     return predictor_variables, target_variable
 
-# random oversampling or random undersampling depends on the size of sampling
-def sampling(pos_index, neg_index,size):
+
+def sampling(pos_index, neg_index, size):
     """
-    
-    :param pos_index:
-    :param neg_index:
-    :param size:
-    :return:
+    Generates indices to perform sampling of the data. It is required to resolve the issue
+    of unbalanced data in the training data set. It is to be noted that random oversampling
+    or random under sampling depends on the size of sample.
+
+    :param pos_index: an array of all positive indices
+    :param neg_index: an array of all negative indices
+    :param size: size of required sample
+    :return: an array containing equal number of positive and negative indices
     """
     pos_index, neg_index = np.random.choice(pos_index, size), np.random.choice(neg_index, size)
     indices = np.concatenate((pos_index, neg_index))
+
     return indices
+
+
