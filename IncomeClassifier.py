@@ -252,28 +252,35 @@ if __name__ == '__main__':
     # Making a list of columns having binary values
     binary_columns = ['ASEX']
 
-    data = drop_columns(data)  # drop some colums
-    data = drop_rows(data)  # drop some rows, since some rows have missing value
+    data = drop_columns(data)
+    data = drop_rows(data)
     data_test = drop_columns(data_test)
     data_test = drop_rows(data_test)
 
+    # List of names of columns with dummy features
     dummy_columns = [col for col in data.columns.values if col not in continuous_columns if
-                     col not in binary_columns]  # names of columns with dummy features
+                     col not in binary_columns]
 
-    data = data_transformation(data, continuous_columns, dummy_columns, binary_columns)  # transform the dataset
+    # Transform the training and test dataset
+    data = data_transformation(data, continuous_columns, dummy_columns, binary_columns)
     data_test = data_transformation(data_test, continuous_columns, dummy_columns, binary_columns)
-    X, y = original_data(data)  # split features and target
+
+    # Split features and target variables
+    X, y = original_data(data)
     X_test, y_test = original_data(data_test)
 
-    pos_index, neg_index = np.where(y == 1)[0], np.where(y == 0)[
-        0]  # separate the indices of target between values of 1 and 0
-    indices = sampling(pos_index, neg_index, 50000)  # correct the imbalance of the training dataset
-    X, y = X[indices], y[
-        indices]  # get the final dataset for model fitting, this is for training set only, shuffling the data
+    # Separate the indices of target between values of 1 and 0
+    pos_index, neg_index = np.where(y == 1)[0], np.where(y == 0)[0]
 
-    # logistic(dataNormalization(X, 2), y, dataNormalization(X_test, 2), y_test)
-    #chooseF(X, y, X_test, y_test)
+    # Correct the imbalance of the training dataset
+    indices = sampling(pos_index, neg_index, 50000)
 
-    #randomForest(X, y, X_test, X, y, X_test, y_test)
-    #decisionTree(X, y, X_test, y_test)
-    #SVM(dataNormalization(X, 2), y) #dataNormalization(X_test, 2), y_test)
+    # Get the final dataset for model fitting, this is for training set only, shuffling the data
+    X, y = X[indices], y[indices]
+
+    # Applying various algorithms
+    logistic(dataNormalization(X, 2), y, dataNormalization(X_test, 2), y_test)
+    KNN(X, y, X_test, y_test)
+    randomForest(X, y, X_test, X, y, X_test, y_test)
+    decisionTree(X, y, X_test, y_test)
+    SVM(dataNormalization(X, 2), y)
